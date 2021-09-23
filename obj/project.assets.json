@@ -1,0 +1,71 @@
+{
+  "version": 3,
+  "targets": {
+    "net5.0": {}
+  },
+  "libraries": {},
+  "projectFileDependencyGroups": {
+    "net5.0": []
+  },
+  "packageFolders": {
+    "S:\\Users\\Baradine\\.nuget\\packages\\": {},
+    "S:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "F:\\Downloads\\Shepherd Stuff\\School Projects\\ShepMUD\\ShepMUD\\ShepMUD.csproj",
+      "projectName": "ShepMUD",
+      "projectPath": "F:\\Downloads\\Shepherd Stuff\\School Projects\\ShepMUD\\ShepMUD\\ShepMUD.csproj",
+      "packagesPath": "S:\\Users\\Baradine\\.nuget\\packages\\",
+      "outputPath": "F:\\Downloads\\Shepherd Stuff\\School Projects\\ShepMUD\\ShepMUD\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "S:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
+      "configFilePaths": [
+        "S:\\Users\\Baradine\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "S:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net5.0"
+      ],
+      "sources": {
+        "S:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net5.0": {
+        "targetAlias": "net5.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "S:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
