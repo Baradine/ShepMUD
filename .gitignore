@@ -1,2 +1,4 @@
-/bin
-/obj
+ShepMUDClient/bin
+ShepMUDClient/obj
+ShepMUDServer/bin
+ShepMUDServer/obj
