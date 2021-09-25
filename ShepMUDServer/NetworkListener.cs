@@ -62,9 +62,27 @@ namespace ShepMUD
         public void ReadCurrentClientData()
         {
             NetworkStream stream;
-            foreach (TcpClient t in ClientHandler.GetClients())
+            NetworkDataHandler dataHandle = new NetworkDataHandler();
+            foreach (ConnectedUser t in ClientHandler.GetClients())
             {
-                stream = t.GetStream();
+                dataHandle.NewPacket(1024);
+                stream = t.connection.GetStream();
+                int i;
+                while ((i = stream.Read(data, 0, data.Length)) != 0)
+                {
+                    dataHandle.AddDataToPacket(data);
+                }
+                GameManager.GetClientData(dataHandle.GetPacket(), t.UserID);
+            }
+        }
+
+        public void SendToUsers(List<ConnectedUser> users, byte[] data)
+        {
+            NetworkStream stream;
+            foreach (ConnectedUser u in users)
+            {
+                stream = u.connection.GetStream();
+                stream.Write(data, 0, data.Length);
             }
         }
 
