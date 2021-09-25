@@ -7,9 +7,9 @@ namespace ShepMUD
     {
         static void Main(string[] args)
         {
-            NetworkListener net = new NetworkListener(13000, IPAddress.Parse("10.0.0.13"));
+            NetworkListener net = new NetworkListener(25565, IPAddress.Parse("10.0.0.13"));
             net.InitServer();
-            net.StartListening();
+            net.ReadForClients();
         }
     }
 }
