@@ -11,7 +11,7 @@ namespace ShepMUDClient
 
             Console.Write("Input IP Address: ");
             string ip = Console.ReadLine();
-            Console.Write("Input IP Address: ");
+            Console.Write("Input Port: ");
             int port = 25565;
             try
             {
