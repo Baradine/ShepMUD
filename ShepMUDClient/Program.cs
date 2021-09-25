@@ -13,7 +13,7 @@ namespace ShepMUDClient
 
 
             Window mainWindow = new Window();
-            mainWindow.Title = "WPF in Console";
+            mainWindow.Title = "ShepMUD";
             mainWindow.Width = 400;
             mainWindow.Height = 300;
             mainWindow.ShowDialog();
