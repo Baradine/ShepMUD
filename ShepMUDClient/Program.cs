@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Net;
+using System.Windows;
+
 
 namespace ShepMUDClient
 {
     class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
-            
 
+
+            Window mainWindow = new Window();
+            mainWindow.Title = "WPF in Console";
+            mainWindow.Width = 400;
+            mainWindow.Height = 300;
+            mainWindow.ShowDialog();
+            
             Console.Write("Input IP Address: ");
             string ip = Console.ReadLine();
             Console.Write("Input IP Address: ");
@@ -21,7 +30,7 @@ namespace ShepMUDClient
                 Console.WriteLine("There was an issue with the port");
             }
 
-            if(ip == "default")
+            if(ip == "default" || ip == null)
             {
                 ip = "73.180.152.206";
                 port = 25565;

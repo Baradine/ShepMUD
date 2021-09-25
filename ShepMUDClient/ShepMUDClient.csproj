@@ -1,8 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+	  <UseWPF>true</UseWPF>
+    <ApplicationIcon />
+    <StartupObject>ShepMUDClient.Program</StartupObject>
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
 
 </Project>
