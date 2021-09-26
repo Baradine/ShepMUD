@@ -28,7 +28,7 @@ public class ConsoleHandler
         writeLine("testing writing to console");
         writeLine("testing writing to console");
         writeLine("testing writing to console");
-        writeLine("This should be the fourth message");
+        writeLine("This should be the fourth message"); //notice these get overriden by the next loop
         for(int i = 0; i < logSize; i++)
         {
             writeLine("Message : " + i);
