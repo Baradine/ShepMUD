@@ -26,6 +26,7 @@ namespace ShepMUD
             this.channelID = ID;
             this.messageLog = new Message[MAX_LOG];
             this.currentIndex = 0;
+            subUsers = new List<ConnectedUser>();
         }
 
         public void HandleMessage(string str, int sendID)
@@ -50,6 +51,16 @@ namespace ShepMUD
                 i++;
             }
             Program.net.SendToUsers(subUsers, data);
+        }
+
+        public void AddSubscriber(ConnectedUser user)
+        {
+            subUsers.Add(user);
+        }
+
+        public void RemoveSubscriber(ConnectedUser user)
+        {
+            subUsers.Remove(user);
         }
 
 

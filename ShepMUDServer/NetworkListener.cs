@@ -61,18 +61,34 @@ namespace ShepMUD
 
         public void ReadCurrentClientData()
         {
-            NetworkStream stream;
-            NetworkDataHandler dataHandle = new NetworkDataHandler();
-            foreach (ConnectedUser t in ClientHandler.GetClients())
+            while (true)
             {
-                dataHandle.NewPacket(1024);
-                stream = t.connection.GetStream();
-                int i;
-                while ((i = stream.Read(data, 0, data.Length)) != 0)
+                NetworkStream stream;
+                NetworkDataHandler dataHandle = new NetworkDataHandler();
+                foreach (ConnectedUser t in ClientHandler.GetClients())
                 {
-                    dataHandle.AddDataToPacket(data);
+                    try
+                    {
+                        dataHandle.NewPacket(1024);
+                        stream = t.connection.GetStream();
+                        int i;
+
+                        // TODO: Change structure around so we only read X data at once, instead of the full packet.
+                        // Add a header to the start of each length that determines if that is data from the server to the
+                        // Client (in which case we should ignore it until it is handled), or data from client to server.
+                        while ((i = stream.Read(data, 0, data.Length)) != 0)
+                        {
+                            dataHandle.AddDataToPacket(data);
+                        }
+                        GameManager.GetClientData(dataHandle.GetPacket(), t.UserID);
+                    }
+                    catch (Exception e)
+                    {
+                        ClientHandler.DropClient(t);
+                        continue;
+                    }
+
                 }
-                GameManager.GetClientData(dataHandle.GetPacket(), t.UserID);
             }
         }
 
@@ -81,8 +97,17 @@ namespace ShepMUD
             NetworkStream stream;
             foreach (ConnectedUser u in users)
             {
-                stream = u.connection.GetStream();
-                stream.Write(data, 0, data.Length);
+                try
+                {
+                    stream = u.connection.GetStream();
+                    stream.Write(data, 0, data.Length);
+                }
+                catch (InvalidOperationException e)
+                {
+                    ClientHandler.DropClient(u);
+                    continue;
+                }
+                
             }
         }
 

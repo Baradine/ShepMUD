@@ -36,6 +36,7 @@ namespace ShepMUD
                 
                 ConnectedUser newUser = new ConnectedUser(client, nextUniqueID);
                 connectedClients.Add(newUser);
+                Chat.channels[Channel.GLOBAL].AddSubscriber(newUser);
                 nextUniqueID++;
             }
             mut.ReleaseMutex();
@@ -45,6 +46,7 @@ namespace ShepMUD
         {
             mut.WaitOne();
             connectedClients.Remove(client);
+            Chat.channels[Channel.GLOBAL].RemoveSubscriber(client);
             mut.ReleaseMutex();
         }
 
@@ -59,7 +61,14 @@ namespace ShepMUD
         // Use this for read only operations, please and thank you.
         public static List<ConnectedUser> GetClients()
         {
-            return connectedClients;
+            mut.WaitOne();
+            List<ConnectedUser> c = new List<ConnectedUser>();
+            foreach (ConnectedUser u in connectedClients)
+            {
+                c.Add(u);
+            }
+            mut.ReleaseMutex();
+            return c;
         }
 
         //For now, this will just spit back out the ID as a string.  We'll have an actual lookup table added once we add logons

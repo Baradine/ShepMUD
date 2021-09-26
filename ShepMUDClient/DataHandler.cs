@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShepMUD
+namespace ShepMUDClient
 {
-    static class GameManager
+    static class DataHandler
     {
-        public static void GetClientData(Byte[] data, int ID)
+        public static void TranslateData(byte[] data)
         {
             //First 4 bytes after the 1st byte flag data types sent, translated using a bitmask.
             if ((data[1] & 1) == 1)
             {
-                Chat.HandleChat(data, 5, 264, ID);
+                Chat.HandleChat(data, 5, 264);
             }
         }
     }

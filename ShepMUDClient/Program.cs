@@ -7,29 +7,31 @@ namespace ShepMUDClient
     {
         static void Main(string[] args)
         {
-            
+
+            int port = 25565;
 
             Console.Write("Input IP Address: ");
             string ip = Console.ReadLine();
-            Console.Write("Input Port: ");
-            int port = 25565;
-            try
-            {
-                port = int.Parse(Console.ReadLine());
-            } catch (Exception e)
-            {
-                Console.WriteLine("There was an issue with the port");
-            }
-
-            if(ip == "default")
+            if (ip == "default")
             {
                 ip = "73.180.152.206";
-                port = 25565;
             }
-
-
+            else
+            {
+                Console.Write("Input Port: ");
+                
+                try
+                {
+                    port = int.Parse(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("There was an issue with the port");
+                }
+            }
             NetworkConnection multiClient = new NetworkConnection(port, IPAddress.Parse(ip));
-            multiClient.TransmitToServer("A new client has appeared.");
+            multiClient.Connect();
+            //multiClient.TransmitToServer("A new client has appeared.");
         }
     }
 }

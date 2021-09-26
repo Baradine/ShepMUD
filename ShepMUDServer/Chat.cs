@@ -8,7 +8,7 @@ namespace ShepMUD
 {
     static class Chat
     {
-        static Channel[] channels = new Channel[100000];
+        public static Channel[] channels = new Channel[100000];
         public static void HandleChat(Byte[] data, int index, int endex, int ID)
         {
             // Last 4 bytes detail  what channel it gets sent to.  We can use channels for private messages as well, simply by protecting the first
@@ -27,6 +27,12 @@ namespace ShepMUD
             {
                 channels[ch].HandleMessage(str, ID);
             }
+        }
+
+        public static void InitGlobal()
+        {
+            Channel global = new Channel(Channel.GLOBAL);
+            channels[Channel.GLOBAL] = global;
         }
     }
 }
