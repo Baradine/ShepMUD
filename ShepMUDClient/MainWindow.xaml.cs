@@ -72,6 +72,7 @@ namespace ShepMUDClient
         {
             string message = InputBox.Text;
             console.writeLine(message);
+            InputBox.Text = "";
         }
 
         private void EnterClicked(object sender, KeyEventArgs e)
