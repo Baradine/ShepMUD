@@ -62,7 +62,6 @@ public class ConsoleHandler
         messageLog[logSize-1] = line;
 
         formatTextblock();
-        didUpdate = true;
 
         if(line[0] == '~') //~ is command operators
         {
