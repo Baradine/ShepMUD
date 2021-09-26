@@ -63,6 +63,18 @@ public class ConsoleHandler
 
         formatTextblock();
         didUpdate = true;
+
+        if(line[0] == '~') //~ is command operators
+        {
+            executeCommand(line);
+        }
+
+    }
+
+    //Prefixes the writeline command with the console, makes it easier to edit in the future
+    public void writeFromConsole(string line)
+    {
+        writeLine("Console: " + line);
     }
 
 
@@ -77,5 +89,22 @@ public class ConsoleHandler
         return didUpdate;
     }
 
+
+    private void executeCommand(string command)
+    {
+        switch (command) {
+            case "~test":
+                writeFromConsole("test");
+                break;
+            case "~help":
+                writeFromConsole("Help command is WIP");
+                break;
+
+            default:
+                writeFromConsole("Command not found"); 
+                break;
+        }
+
+    }
 
 }
