@@ -21,7 +21,7 @@ namespace ShepMUDClient
     /// </summary>
     public partial class Window1 : Window
     {
-        bool test = false;
+        bool textBlockChange = true;
         private const int CLOCK_SPEED = 100;
         private static System.Timers.Timer aTimer;
         public ConsoleHandler console { get; set; }
@@ -32,26 +32,12 @@ namespace ShepMUDClient
 
             console = new ConsoleHandler(this);
 
-            
-
             InitializeComponent();
             Title = "ShepMUD";
             Width = 960;
             Height = 540;
             Show();
             TimingStart();
-
-            //SystemTimerDelegate time = new SystemTimerDelegate(TimingStart);
-
-            //Dispatcher.Invoke(DispatcherPriority.Normal, new SystemTimerDelegate(TimingStart));
-
-            //CompositionTarget.Rendering += new EventHandler(dispatcherTimer_Tick);
-
-            //DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            //dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            //dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            //dispatcherTimer.Start();
-            //ExecutionLoop();
         }
 
         public void TimingStart()
@@ -76,19 +62,10 @@ namespace ShepMUDClient
 
         private void dispatcherTimer_Tick()
         {
-           
-            if (test)
+            if (console.IsConsoleUpdated())
             {
-                ChangeText("test");
-                test = false;
+                console.getUpdate();
             }
-            else if (!test)
-            {
-                ChangeText("blessed");
-                test = true;
-            }
-
-            
         }
 
     }

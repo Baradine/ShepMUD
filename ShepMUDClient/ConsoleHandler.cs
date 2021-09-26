@@ -11,6 +11,8 @@ public class ConsoleHandler
     string[] messageLog; //for display
     string logDisplay;
 
+    private bool didUpdate;
+
 
     public ConsoleHandler(Window1 mainWindow)
     {
@@ -62,12 +64,19 @@ public class ConsoleHandler
         messageLog[logSize-1] = line;
 
         formatTextblock();
+        didUpdate = true;
     }
 
 
     public void getUpdate()
     {
         window.ChangeText(logDisplay);
+        didUpdate = false;
+    }
+
+    public bool IsConsoleUpdated()
+    {
+        return didUpdate;
     }
 
 
