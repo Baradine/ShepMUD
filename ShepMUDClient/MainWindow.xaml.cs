@@ -24,11 +24,16 @@ namespace ShepMUDClient
         bool test = false;
         private const int CLOCK_SPEED = 100;
         private static System.Timers.Timer aTimer;
-
+        public ConsoleHandler console { get; set; }
         public delegate void SystemTimerDelegate();
         // public TextBlock tb { set; get; }
         public Window1()
         {
+
+            console = new ConsoleHandler(this);
+
+            
+
             InitializeComponent();
             Title = "ShepMUD";
             Width = 960;
@@ -71,7 +76,7 @@ namespace ShepMUDClient
 
         private void dispatcherTimer_Tick()
         {
-            
+           
             if (test)
             {
                 ChangeText("test");
@@ -82,6 +87,8 @@ namespace ShepMUDClient
                 ChangeText("blessed");
                 test = true;
             }
+
+            
         }
 
     }
