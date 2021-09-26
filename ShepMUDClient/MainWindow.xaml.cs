@@ -24,14 +24,12 @@ namespace ShepMUDClient
         public Window1()
         {
             InitializeComponent();
-            DataContext = ConsoleHandler.getHandler();
+
         }
 
         public void changeText(string text)
         {
-            ConsoleBox.Inlines.Clear();
-            ConsoleBox.Inlines.Add(text);
-            //this.Content = ConsoleBox;
+            ConsoleBox.Text = text;
         }
 
     }

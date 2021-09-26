@@ -22,8 +22,8 @@ namespace ShepMUDClient
             mainWindow.Height = 540;
             mainWindow.ShowDialog();
 
-            
 
+            mainWindow.changeText("New text here");
             //mainWindow.tb.Text = "Test\nfor\nfucks sake";
             //mainWindow.tb.Inlines.Add("asdhjasghkdahsdsa");
 
