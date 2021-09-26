@@ -22,6 +22,10 @@ namespace ShepMUDClient
     public partial class Window1 : Window
     {
         bool test = false;
+        private const int CLOCK_SPEED = 100;
+        private static System.Timers.Timer aTimer;
+
+        public delegate void SystemTimerDelegate();
         // public TextBlock tb { set; get; }
         public Window1()
         {
@@ -30,12 +34,27 @@ namespace ShepMUDClient
             Width = 960;
             Height = 540;
             Show();
+            TimingStart();
 
-            DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            dispatcherTimer.Start();
+            //SystemTimerDelegate time = new SystemTimerDelegate(TimingStart);
+
+            //Dispatcher.Invoke(DispatcherPriority.Normal, new SystemTimerDelegate(TimingStart));
+
+            //CompositionTarget.Rendering += new EventHandler(dispatcherTimer_Tick);
+
+            //DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            //dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            //dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            //dispatcherTimer.Start();
             //ExecutionLoop();
+        }
+
+        public void TimingStart()
+        {
+            aTimer = new System.Timers.Timer(CLOCK_SPEED);
+            aTimer.Elapsed += ExecutionLoop;
+            aTimer.AutoReset = true;
+            aTimer.Enabled = true;
         }
 
         public void ChangeText(string text)
@@ -47,11 +66,12 @@ namespace ShepMUDClient
 
         public void ExecutionLoop(object sender, EventArgs e)
         {
-            
+            Dispatcher.Invoke(DispatcherPriority.Normal, new SystemTimerDelegate(dispatcherTimer_Tick));
         }
 
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        private void dispatcherTimer_Tick()
         {
+            
             if (test)
             {
                 ChangeText("test");
@@ -62,7 +82,6 @@ namespace ShepMUDClient
                 ChangeText("blessed");
                 test = true;
             }
-            
         }
 
     }
