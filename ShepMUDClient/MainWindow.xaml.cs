@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ShepMUDClient
 {
@@ -19,9 +20,17 @@ namespace ShepMUDClient
     /// </summary>
     public partial class Window1 : Window
     {
+       // public TextBlock tb { set; get; }
         public Window1()
         {
             InitializeComponent();
+
         }
+
+        public void changeText(string text)
+        {
+            ConsoleBox.Text = text;
+        }
+
     }
 }
