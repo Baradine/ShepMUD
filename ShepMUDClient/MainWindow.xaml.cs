@@ -26,7 +26,6 @@ namespace ShepMUDClient
         private static System.Timers.Timer aTimer;
         public ConsoleHandler console { get; set; }
         public delegate void SystemTimerDelegate();
-        // public TextBlock tb { set; get; }
         public Window1()
         {
 
@@ -38,6 +37,7 @@ namespace ShepMUDClient
             Height = 540;
             Show();
             TimingStart();
+
         }
 
         public void TimingStart()
@@ -65,6 +65,21 @@ namespace ShepMUDClient
             if (console.IsConsoleUpdated())
             {
                 console.getUpdate();
+            }
+        }
+
+        private void sendMessage()
+        {
+            string message = InputBox.Text;
+            console.writeLine(message);
+        }
+
+        private void EnterClicked(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                sendMessage();
+                e.Handled = true;
             }
         }
 

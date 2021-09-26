@@ -7,7 +7,7 @@ public class ConsoleHandler
 
 
     Window1 window; //Stores reference to window to update textblock
-    int logSize = 24;
+    int logSize = 22; //should make dynamic based on size of console
     string[] messageLog; //for display
     string logDisplay;
 
@@ -26,15 +26,13 @@ public class ConsoleHandler
 
         formatTextblock();
 
-        //Example of writing to the console
-        writeLine("testing writing to console");
-        writeLine("testing writing to console");
-        writeLine("testing writing to console");
-        writeLine("This should be the fourth message"); //notice these get overriden by the next loop
+        
+        //Fills console for no reason
         for(int i = 0; i < logSize; i++)
         {
             writeLine("Message : " + i);
         }
+
     }
 
 
