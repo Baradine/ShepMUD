@@ -15,10 +15,10 @@ namespace ShepMUDClient
         Int32 hostPort;
         IPAddress hostIP;
         TcpClient client;
-        public NetworkConnection(Int32 port, IPAddress ip)
+        public NetworkConnection(Int32 port, string ip)
         {
             this.hostPort = port;
-            this.hostIP = ip;
+            this.hostIP = IPAddress.Parse(ip);
             client = new TcpClient();
         }
 
@@ -27,7 +27,7 @@ namespace ShepMUDClient
             int i = 0;
             while (i < 4)
             {
-                Console.Write("Trying to connect...");
+                Main.WriteToChat("Trying to connect...");
                 try
                 {
                     client.Connect(hostIP, hostPort);
@@ -35,16 +35,19 @@ namespace ShepMUDClient
                 }
                 catch (Exception e)
                 {
-                    Console.Write("Connection Failed. ");
+                    Main.WriteToChat("Connection Failed. ");
                     i++;
                     Thread.Sleep(2000);
                 }
             }
             if (i < 10)
             {
-                Console.Write("The server didn't respond.  Exiting.  Press enter to continue.");
-                Console.Read();
+                Main.WriteToChat("The server didn't respond.  Exiting.  Press enter to continue.");
                 Environment.Exit(65);
+            }
+            else
+            {
+                Main.WriteToChat("Connected!");
             }
             i = 0;
         }
@@ -57,37 +60,59 @@ namespace ShepMUDClient
             {
                 NetworkStream stream = client.GetStream();
                 byte[] data = new byte[265];
-                stream.Read(data, 0, data.Length);
+                if (stream.DataAvailable)
+                {
+                    stream.Read(data, 0, data.Length);
+                    DataHandler.TranslateData(data);
+                }
+                
             }
             catch (Exception e)
             { }
         }
 
-        public void TransmitToServer(string message)
+        public void TransmitToServer(byte header, byte[] mask, byte[] data)
         {
             try
             {
-
-                client.Connect(hostIP, hostPort);
-                Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+                byte[] message = data;
+                Array.Reverse(message);
+                Array.Resize(ref message, data.Length + 5);
+                Array.Reverse(mask);
+                int index = data.Length;
+                foreach (byte b in mask)
+                {
+                    message[index] = b;
+                    index++;
+                }
+                message[index] = header;
+                Array.Reverse(message);
 
                 NetworkStream stream = client.GetStream();
 
-                stream.Write(data, 0, data.Length);
-                Console.WriteLine("Sent: {0}", message);
+                stream.Write(message);
 
-                data = new Byte[256];
-                String responseData = String.Empty;
-                Int32 bytes = stream.Read(data, 0, data.Length);
-                responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                Console.WriteLine("Received: {0}", responseData);
+                //client.Connect(hostIP, hostPort);
+                //Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+
+                //NetworkStream stream = client.GetStream();
+
+                //stream.Write(data, 0, data.Length);
+                //Console.WriteLine("Sent: {0}", message);
+
+                //data = new Byte[265];
+                //String responseData = String.Empty;
+                //Int32 bytes = stream.Read(data, 0, data.Length);
+                //responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                //Console.WriteLine("Received: {0}", responseData);
 
                 //stream.Close();
                 //client.Close();
             }
             catch (Exception e)
             {
-                Console.WriteLine("NetworkError: {0}", e);
+
+                //Main.WriteToChat(e.ToString());
             }
             Console.WriteLine("\n Press Enter to continue...");
             Console.Read();

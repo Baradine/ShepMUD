@@ -14,7 +14,17 @@ namespace ShepMUDClient
             // Last 4 bytes detail  what channel it gets sent to.  We can use channels for private messages as well, simply by protecting the first
             // However many digits that are normal/global channels, and the rest are assigned to users/guilds.
             // Given how that's over 4 Billion different channels, I highly doubt we'll ever reach a limit.
-            string str = System.Text.Encoding.UTF8.GetString(data, index, endex - 4);
+
+            byte[] copy = new byte[data.Length];
+            Array.Copy(data, copy, data.Length);
+            for (int i = index; i < endex+1; i++)
+            {
+                if (copy[i] == 0)
+                {
+                    copy[i] = 32;
+                }
+            }
+            string str = System.Text.Encoding.UTF8.GetString(copy, index, endex - 4);
             int ch = BitConverter.ToInt32(data, endex - 3);
 
             bool found = false;
@@ -38,7 +48,8 @@ namespace ShepMUDClient
         {
             // Once the GUI is up and running, we'd also have this add extra chat tabs
             // If necessary.  For now, just outputs to console.
-            Console.WriteLine(str);
+            str = str.Trim();
+            Main.WriteToChat(str);
         }
 
         public static void InitGlobal()

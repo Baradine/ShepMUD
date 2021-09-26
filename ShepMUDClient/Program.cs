@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Threading;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Diagnostics;
 
 namespace ShepMUDClient 
 {

@@ -28,10 +28,10 @@ public class ConsoleHandler
 
         
         //Fills console for no reason
-        for(int i = 0; i < logSize; i++)
-        {
-            writeLine("Message : " + i);
-        }
+        //for(int i = 0; i < logSize; i++)
+        //{
+        //    writeLine("Message : " + i);
+        //}
 
     }
 
@@ -51,9 +51,9 @@ public class ConsoleHandler
 
     public void writeLine(string line)
     {
-
+        didUpdate = true;
         //move all the messages up
-        for(int i = 0; i < logSize-1; i++)
+        for (int i = 0; i < logSize-1; i++)
         {
             messageLog[i] = messageLog[i + 1];
         }
@@ -62,14 +62,13 @@ public class ConsoleHandler
         messageLog[logSize-1] = line;
 
         formatTextblock();
-        didUpdate = true;
     }
 
 
     public void getUpdate()
     {
-        window.ChangeText(logDisplay);
         didUpdate = false;
+        window.ChangeText(logDisplay);
     }
 
     public bool IsConsoleUpdated()

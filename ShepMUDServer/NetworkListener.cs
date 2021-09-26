@@ -24,7 +24,7 @@ namespace ShepMUD
         {
             this.port = port;
             this.hostAddress = hostIP;
-            this.data = new Byte[256];
+            this.data = new Byte[265];
         }
 
         public void InitServer()
@@ -61,6 +61,8 @@ namespace ShepMUD
 
         public void ReadCurrentClientData()
         {
+
+            
             while (true)
             {
                 NetworkStream stream;
@@ -76,11 +78,13 @@ namespace ShepMUD
                         // TODO: Change structure around so we only read X data at once, instead of the full packet.
                         // Add a header to the start of each length that determines if that is data from the server to the
                         // Client (in which case we should ignore it until it is handled), or data from client to server.
-                        while ((i = stream.Read(data, 0, data.Length)) != 0)
+                        if (stream.DataAvailable)
                         {
+                            stream.Read(data, 0, data.Length);
                             dataHandle.AddDataToPacket(data);
+                            GameManager.GetClientData(dataHandle.GetPacket(), t.UserID);
                         }
-                        GameManager.GetClientData(dataHandle.GetPacket(), t.UserID);
+                            
                     }
                     catch (Exception e)
                     {
@@ -92,15 +96,31 @@ namespace ShepMUD
             }
         }
 
-        public void SendToUsers(List<ConnectedUser> users, byte[] data)
+        public void SendToUsers(List<ConnectedUser> users, byte[] data, byte header, byte[] type)
         {
             NetworkStream stream;
             foreach (ConnectedUser u in users)
             {
                 try
                 {
+                    byte[] message = data;
+                    Array.Reverse(message);
+                    Array.Resize(ref message, data.Length + 5);
+                    int index = message.Length - 5;
+                    foreach (byte b in type)
+                    {
+                        message[index] = b;
+                        index++;
+                    }
+                    message[index] = header;
+
+                    Array.Reverse(message);
+
                     stream = u.connection.GetStream();
-                    stream.Write(data, 0, data.Length);
+                    stream.Write(message, 0, message.Length);
+
+                    string str = System.Text.Encoding.UTF8.GetString(message, 0, 255);
+                    Console.WriteLine(str);
                 }
                 catch (InvalidOperationException e)
                 {

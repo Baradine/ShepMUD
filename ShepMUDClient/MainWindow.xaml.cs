@@ -21,31 +21,16 @@ namespace ShepMUDClient
     /// </summary>
     public partial class Window1 : Window
     {
-        bool textBlockChange = true;
-        private const int CLOCK_SPEED = 100;
-        private static System.Timers.Timer aTimer;
-        public ConsoleHandler console { get; set; }
-        public delegate void SystemTimerDelegate();
+        //Main main;
         public Window1()
         {
-
-            console = new ConsoleHandler(this);
-
             InitializeComponent();
             Title = "ShepMUD";
             Width = 960;
             Height = 540;
             Show();
-            TimingStart();
-
-        }
-
-        public void TimingStart()
-        {
-            aTimer = new System.Timers.Timer(CLOCK_SPEED);
-            aTimer.Elapsed += ExecutionLoop;
-            aTimer.AutoReset = true;
-            aTimer.Enabled = true;
+            //main = new Main();
+            Main.Startup(this);
         }
 
         public void ChangeText(string text)
@@ -53,36 +38,18 @@ namespace ShepMUDClient
             ConsoleBox.Text = text;
         }
 
-        
-
-        public void ExecutionLoop(object sender, EventArgs e)
-        {
-            Dispatcher.Invoke(DispatcherPriority.Normal, new SystemTimerDelegate(dispatcherTimer_Tick));
-        }
-
-        private void dispatcherTimer_Tick()
-        {
-            if (console.IsConsoleUpdated())
-            {
-                console.getUpdate();
-            }
-        }
-
-        private void sendMessage()
-        {
-            string message = InputBox.Text;
-            console.writeLine(message);
-            InputBox.Text = "";
-        }
-
         private void EnterClicked(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {
-                sendMessage();
+                Main.sendMessage();
                 e.Handled = true;
             }
         }
 
+        private void ConsoleBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

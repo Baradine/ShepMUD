@@ -42,7 +42,7 @@ namespace ShepMUD
         void SendMessage(string message, int ch)
         {
             byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
-            Array.Resize(ref data, data.Length + 4);
+            Array.Resize(ref data, 260);
             int i = data.Length - 4;
             byte[] channel = BitConverter.GetBytes(ch);
             foreach(byte b in channel)
@@ -50,7 +50,7 @@ namespace ShepMUD
                 data[i] = b;
                 i++;
             }
-            Program.net.SendToUsers(subUsers, data);
+            Program.net.SendToUsers(subUsers, data, 1, new byte[] { 1, 1, 1, 1 });
         }
 
         public void AddSubscriber(ConnectedUser user)

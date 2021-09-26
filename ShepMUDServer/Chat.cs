@@ -16,7 +16,6 @@ namespace ShepMUD
             // Given how that's over 4 Billion different channels, I highly doubt we'll ever reach a limit.
             string str = System.Text.Encoding.UTF8.GetString(data, index, endex-4);
             int ch = BitConverter.ToInt32(data, endex - 3);
-
             if (channels[ch] == null)
             {
                 Channel channel = new Channel(ch);
