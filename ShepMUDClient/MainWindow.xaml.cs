@@ -21,10 +21,17 @@ namespace ShepMUDClient
     /// </summary>
     public partial class Window1 : Window
     {
-        bool test = false;
-        // public TextBlock tb { set; get; }
+        //bool test = false;
+
+        public ConsoleHandler console { get; set; }
+
         public Window1()
         {
+
+            console = new ConsoleHandler(this);
+
+            
+
             InitializeComponent();
             Title = "ShepMUD";
             Width = 960;
@@ -52,7 +59,15 @@ namespace ShepMUDClient
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if (test)
+            if(console != null)
+            {
+                ChangeText("Trying to update");
+                console.getUpdate();
+            } else
+            {
+                ChangeText("No console found");
+            }
+            /*if (test)
             {
                 ChangeText("test");
                 test = false;
@@ -61,7 +76,7 @@ namespace ShepMUDClient
             {
                 ChangeText("blessed");
                 test = true;
-            }
+            }*/
             
         }
 

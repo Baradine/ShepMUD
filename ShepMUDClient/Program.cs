@@ -10,18 +10,23 @@ namespace ShepMUDClient
 {
     class Program : Application
     {
-        Window1 mainWindow = new Window1();
+        public Window1 mainWindow = new Window1();
+
         [STAThread]
         static void Main(string[] args)
         {
             Program prog = new Program();
             prog.Run();
+
+
+
+
+
+
             //string ip = "default";
             //int port = 25565;
 
-            //ConsoleHandler cs = new ConsoleHandler();
 
-            // Console.Write("Input IP Address: ");
             //string ip = Console.ReadLine();
             //
             //if (ip == "default")
