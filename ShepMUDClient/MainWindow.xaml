@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Window1" Height="450" Width="800">
     <Grid Background="#FF181818">
-        <TextBlock x:Name="ConsoleBox" x:FieldModifier="public" HorizontalAlignment="Center" Margin="0,37,0,0" Text="null" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.58,-2.289" Height="387" Width="780" Foreground="White" Background="#FF212121"/>
+        <TextBox x:Name="ConsoleBox" x:FieldModifier="public" AcceptsReturn="True" IsReadOnly="True" HorizontalAlignment="Center" Margin="0,37,0,0" Text="textBox" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.58,-2.289" Height="387" Width="780" Foreground="White" Background="#FF212121"/>
 
     </Grid>
 </Window>
