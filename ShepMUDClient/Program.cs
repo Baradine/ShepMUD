@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace ShepMUDClient 
 {
-    class Program : System.Windows.Application
+    class Program : Application
     {
         Window1 mainWindow = new Window1();
         [STAThread]
