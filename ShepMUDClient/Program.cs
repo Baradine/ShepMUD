@@ -10,12 +10,8 @@ namespace ShepMUDClient
         [STAThread]
         static void Main(string[] args)
         {
-<<<<<<< HEAD
 
             int port = 25565;
-=======
->>>>>>> fc352353154a92f3331af20737864c1f9106a47b
-
 
             Window mainWindow = new Window();
             mainWindow.Title = "ShepMUD";
@@ -29,14 +25,10 @@ namespace ShepMUDClient
             {
                 ip = "73.180.152.206";
             }
-<<<<<<< HEAD
-            else
-=======
-
-            if(ip == "default" || ip == null)
->>>>>>> fc352353154a92f3331af20737864c1f9106a47b
+            else if(ip != "default" || ip == null)
             {
                 Console.Write("Input Port: ");
+                ip = "127.0.0.1";
                 
                 try
                 {
