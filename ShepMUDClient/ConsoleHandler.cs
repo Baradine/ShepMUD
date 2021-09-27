@@ -7,7 +7,7 @@ public class ConsoleHandler
 
 
     Window1 window; //Stores reference to window to update textblock
-    int logSize = 22; //should make dynamic based on size of console
+    int logSize = 1000; //should make dynamic based on size of console (CHANGED TO BE MAX BACKLOG???)
     string[] messageLog; //for display
     string logDisplay;
 
