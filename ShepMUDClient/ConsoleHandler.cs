@@ -61,12 +61,11 @@ public class ConsoleHandler
         //add new message
         messageLog[logSize-1] = line;
 
-        formatTextblock();
-
         if(line[0] == '~') //~ is command operators
         {
             executeCommand(line);
         }
+        formatTextblock();
 
     }
 
