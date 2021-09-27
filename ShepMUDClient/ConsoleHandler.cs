@@ -36,7 +36,7 @@ public class ConsoleHandler
     }
 
 
-    private void formatTextblock()
+    private void formatTextblock() //This rebuilds the string for the ENTIRE log every time it refeshes....
     {
         StringBuilder sb = new StringBuilder();
 
@@ -61,10 +61,7 @@ public class ConsoleHandler
         //add new message
         messageLog[logSize-1] = line;
 
-        if(line[0] == '~') //~ is command operators
-        {
-            executeCommand(line);
-        }
+        
         formatTextblock();
 
     }
@@ -88,7 +85,7 @@ public class ConsoleHandler
     }
 
 
-    private void executeCommand(string command)
+    public void executeCommand(string command)
     {
         switch (command) {
             case "~test":

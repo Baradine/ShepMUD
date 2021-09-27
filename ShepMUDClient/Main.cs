@@ -53,6 +53,14 @@ namespace ShepMUDClient
         public static void sendMessage()
         {
             string message = window.InputBox.Text;
+
+            //Command check
+            if (message[0] == '~') //~ is command operators
+            {
+                console.executeCommand(message);
+            }
+            //------
+
             byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
             if (data.Length > 256)
             {
