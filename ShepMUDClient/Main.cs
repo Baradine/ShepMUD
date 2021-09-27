@@ -54,6 +54,11 @@ namespace ShepMUDClient
         {
             string message = window.InputBox.Text;
 
+            if (message.Length == 0)
+            {
+                return;
+            }
+
             //Command check
             if (message[0] == '~') //~ is command operators
             {

@@ -60,10 +60,7 @@ public class ConsoleHandler
         
         //add new message
         messageLog[logSize-1] = line;
-
-        
         formatTextblock();
-
     }
 
     //Prefixes the writeline command with the console, makes it easier to edit in the future

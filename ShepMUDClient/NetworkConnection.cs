@@ -76,17 +76,19 @@ namespace ShepMUDClient
             try
             {
                 byte[] message = data;
-                Array.Reverse(message);
-                Array.Resize(ref message, data.Length + 5);
-                Array.Reverse(mask);
-                int index = data.Length;
+                //Array.Reverse(message);
+                //Array.Resize(ref message, data.Length + 5);
+                //Array.Reverse(mask);
+                message = Utility.ShiftAndResizeArray(message, 5);
+                message[0] = header;
+                int index = 1;
                 foreach (byte b in mask)
                 {
                     message[index] = b;
                     index++;
                 }
-                message[index] = header;
-                Array.Reverse(message);
+                
+                //Array.Reverse(message);
 
                 NetworkStream stream = client.GetStream();
 

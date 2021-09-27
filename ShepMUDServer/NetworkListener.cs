@@ -104,22 +104,19 @@ namespace ShepMUD
                 try
                 {
                     byte[] message = data;
-                    Array.Reverse(message);
-                    Array.Resize(ref message, data.Length + 5);
-                    int index = message.Length - 5;
+                    message = Utility.ShiftAndResizeArray(message, 5);
+                    int index = 1;
+                    message[0] = header;
                     foreach (byte b in type)
                     {
                         message[index] = b;
                         index++;
                     }
-                    message[index] = header;
-
-                    Array.Reverse(message);
 
                     stream = u.connection.GetStream();
                     stream.Write(message, 0, message.Length);
 
-                    string str = System.Text.Encoding.UTF8.GetString(message, 0, 255);
+                    string str = System.Text.Encoding.UTF8.GetString(message, 0, 265);
                     Console.WriteLine(str);
                 }
                 catch (InvalidOperationException e)

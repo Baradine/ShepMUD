@@ -50,7 +50,8 @@ namespace ShepMUD
                 data[i] = b;
                 i++;
             }
-            Program.net.SendToUsers(subUsers, data, 1, new byte[] { 1, 1, 1, 1 });
+
+            Program.net.SendToUsers(subUsers, data, 1, new byte[] { 1, 0, 0, 0 });
         }
 
         public void AddSubscriber(ConnectedUser user)
