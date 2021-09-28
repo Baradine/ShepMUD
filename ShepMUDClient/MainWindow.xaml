@@ -28,5 +28,5 @@
         <Button Name="M1" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="1" Width="150" Height="30" Margin="748,55,0,0">FILLER1</Button>
         <Button Name="M2" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="1" Width="150" Height="30" Margin="748,116,0,0">FILLER2</Button>
         <Button Name="M3" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="1" Width="150" Height="30" Margin="748,177,0,0">FILLER3</Button>
-    </Grid>                                                                                                                        
+    </Grid>
 </Window>
