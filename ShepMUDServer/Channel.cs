@@ -12,7 +12,7 @@ namespace ShepMUD
     {
         public const int ADMIN = 0;
         public const int GLOBAL = 1;
-        public const int MAX_LOG = 5000;
+        public const int MAX_LOG = 500;
 
         int channelID;
 
@@ -33,7 +33,16 @@ namespace ShepMUD
         {
             Message mess = new Message(str, sendID);
             messageLog[currentIndex] = mess;
-            currentIndex++;
+
+            if (currentIndex == MAX_LOG - 1)
+            {
+                currentIndex = 0;
+            }
+            else
+            {
+                currentIndex++;
+            }
+
             string username = ClientHandler.GetUsername(sendID);
             string message = username + ": " + str;
             SendMessage(message, channelID);

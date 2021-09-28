@@ -10,7 +10,7 @@ namespace ShepMUDClient
     {
         public const int ADMIN = 0;
         public const int GLOBAL = 1;
-        public const int MAX_LOG = 5000;
+        public const int MAX_LOG = 500;
 
         public int channelID { get; }
 
@@ -29,7 +29,15 @@ namespace ShepMUDClient
         public void AddMessage(string str)
         {
             messageLog[currentIndex] = str;
-            currentIndex++;
+            if (currentIndex == MAX_LOG - 1)
+            {
+                currentIndex = 0;
+            }
+            else
+            {
+                currentIndex++;
+            }
+            
             Chat.Update(channelID, str);
         }
     }
