@@ -31,11 +31,14 @@ namespace ShepMUDClient
             Show();
             //main = new Main();
             Main.Startup(this);
+
+            
         }
 
         public void ChangeText(string text)
         {
             ConsoleBox.Text = text;
+            ConsoleBox.ScrollToEnd(); //automatically scroll to the bottom
         }
 
         private void EnterClicked(object sender, KeyEventArgs e)

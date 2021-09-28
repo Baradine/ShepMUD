@@ -7,9 +7,11 @@ public class ConsoleHandler
 
 
     Window1 window; //Stores reference to window to update textblock
-    int logSize = 1000; //should make dynamic based on size of console (CHANGED TO BE MAX BACKLOG???)
+    int logSize = 50; //should make dynamic based on size of console (CHANGED TO BE MAX BACKLOG???)
     string[] messageLog; //for display
     string logDisplay;
+
+    private Channel currentChannel;
 
     private bool didUpdate;
 
@@ -26,12 +28,7 @@ public class ConsoleHandler
 
         formatTextblock();
 
-        
-        //Fills console for no reason
-        //for(int i = 0; i < logSize; i++)
-        //{
-        //    writeLine("Message : " + i);
-        //}
+       
 
     }
 
@@ -81,6 +78,10 @@ public class ConsoleHandler
         return didUpdate;
     }
 
+    public void SetCurrentChannel(Channel c)
+    {
+        currentChannel = c;
+    }
 
     public void executeCommand(string command)
     {

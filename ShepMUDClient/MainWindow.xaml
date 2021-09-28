@@ -5,10 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShepMUDClient"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
-    <Grid Background="#FF181818">
-        <TextBox x:Name="ConsoleBox" x:FieldModifier="public" AcceptsReturn="True" IsReadOnly="True" HorizontalAlignment="Center" Margin="0,37,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.58,-2.289" Height="356" Width="780" Foreground="White" Background="#FF212121" TextChanged="ConsoleBox_TextChanged"/>
-        <TextBox x:Name="InputBox"  HorizontalAlignment="Center" Margin="0,398,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="780" Background="#FF212123" Foreground="White" PreviewKeyDown="EnterClicked"/>
+        Title="Window1" Height="540" Width="960"
+        MinHeight="540" MinWidth="960">
+    <Grid Background="#FF181818" Height="540">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="417*"/>
+            <RowDefinition Height="17*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="21*"/>
+            <ColumnDefinition Width="379*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="ConsoleBox" x:FieldModifier="public" AcceptsReturn="True" IsReadOnly="True" HorizontalAlignment="Left" Margin="10,252,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.58,-2.289" Height="206" Width="780" Foreground="White" Background="#FF212121" TextChanged="ConsoleBox_TextChanged" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="InputBox"  HorizontalAlignment="Left" Margin="10,476,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="780" Background="#FF212123" Foreground="White" PreviewKeyDown="EnterClicked" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="mapHolder" HorizontalAlignment="Left" Margin="620,10,0,0" Text="MAP PLACEHOLDER" TextWrapping="Wrap" VerticalAlignment="Top" Height="194" Width="280" Grid.Column="1" Foreground="White" TextAlignment="Center" Background="Black"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="VIEWPORT PLACEHOLDER" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-2.407,-3.413" Grid.ColumnSpan="2" Height="194" Width="655" Background="#FF1D1212" TextAlignment="Center" Foreground="White"/>
 
     </Grid>
 </Window>
