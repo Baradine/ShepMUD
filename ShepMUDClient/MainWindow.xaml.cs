@@ -21,6 +21,8 @@ namespace ShepMUDClient
     /// </summary>
     public partial class Window1 : Window
     {
+        bool menuVis = false;   //whether or not the dropdown menu is visible. Default False.
+
         //Main main;
         public Window1()
         {
@@ -53,6 +55,44 @@ namespace ShepMUDClient
         private void ConsoleBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        /**
+         *  Action Handler for Menu
+         **/
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender == M1)                       //Menu1 pressed
+            {
+                Console.WriteLine("M1 Pressed");                    //<---- debugging behaviour. Change before deployment.
+            }
+            else if (sender == M2)                  //Menu2 pressed
+            {
+                Console.WriteLine("M2 Pressed");
+            }
+            else if (sender == M3)                 //Menu3 pressed
+            {
+                Console.WriteLine("M3 Pressed");
+            }
+        }
+
+        /**
+         *  Actionhandler which displays the menu items
+         **/
+        private void menuDropDown_Click(object sender, RoutedEventArgs e)
+        {
+            if(menuVis == false)    //if hidden
+            {
+                M1.Visibility = Visibility.Visible; //make not hidden
+                M2.Visibility = Visibility.Visible;
+                M3.Visibility = Visibility.Visible;
+            } else          //else
+            {
+                M1.Visibility = Visibility.Hidden;  //make hidden
+                M2.Visibility = Visibility.Hidden;
+                M3.Visibility = Visibility.Hidden;
+            }
+            menuVis = !menuVis;
         }
     }
 }
