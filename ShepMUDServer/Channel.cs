@@ -34,6 +34,7 @@ namespace ShepMUD
             Message mess = new Message(str, sendID);
             messageLog[currentIndex] = mess;
 
+            // Rollover so we don't crash
             if (currentIndex == MAX_LOG - 1)
             {
                 currentIndex = 0;

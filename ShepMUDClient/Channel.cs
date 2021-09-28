@@ -29,6 +29,8 @@ namespace ShepMUDClient
         public void AddMessage(string str)
         {
             messageLog[currentIndex] = str;
+
+            // Rollover so we don't crash
             if (currentIndex == MAX_LOG - 1)
             {
                 currentIndex = 0;

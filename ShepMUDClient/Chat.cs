@@ -57,5 +57,17 @@ namespace ShepMUDClient
             Channel global = new Channel(Channel.GLOBAL);
             channels[Channel.GLOBAL] = global;
         }
+
+        public static Channel GetChannel(int ID)
+        {
+            foreach (Channel c in channels)
+            {
+                if (c.channelID == ID)
+                {
+                    return c;
+                }
+            }
+            return null;
+        }
     }
 }
