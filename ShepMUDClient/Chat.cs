@@ -55,7 +55,8 @@ namespace ShepMUDClient
         public static void InitGlobal()
         {
             Channel global = new Channel(Channel.GLOBAL);
-            channels[Channel.GLOBAL] = global;
+            channels.Add(global);
+
         }
 
         public static Channel GetChannel(int ID)

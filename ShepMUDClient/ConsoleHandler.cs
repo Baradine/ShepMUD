@@ -7,11 +7,11 @@ class ConsoleHandler
 
 
     Window1 window; //Stores reference to window to update textblock
-    int logSize = 50; //should make dynamic based on size of console (CHANGED TO BE MAX BACKLOG???)
-    string[] messageLog; //for display
+    //int logSize = 50; //should make dynamic based on size of console (CHANGED TO BE MAX BACKLOG???)
+    //string[] messageLog; //for display
     string logDisplay;
 
-    private Channel currentChannel;
+    private Channel currentChannel; //default channel
 
     private bool didUpdate;
 
@@ -20,13 +20,13 @@ class ConsoleHandler
     {
         window = mainWindow;
 
-        messageLog = new string[logSize];
+        //messageLog = new string[logSize];
 
-        for(int i = 0; i < logSize; i++){
-            messageLog[i] = " ";
-        }
+        //for(int i = 0; i < logSize; i++){
+        //    messageLog[i] = " ";
+        //}
 
-        formatTextblock();
+        //formatTextblock(); //cant format until currentChannel is set
 
        
 
@@ -37,9 +37,10 @@ class ConsoleHandler
     {
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < logSize; i++)
+        for (int i = 0; i < currentChannel.messageLog.Length; i++)
         {
-            sb.Append(messageLog[i]);
+            //sb.Append(messageLog[i]);
+            sb.Append(currentChannel.messageLog[i]);
             sb.Append("\n");
         }
 
@@ -50,13 +51,14 @@ class ConsoleHandler
     {
         didUpdate = true;
         //move all the messages up
-        for (int i = 0; i < logSize-1; i++)
-        {
-            messageLog[i] = messageLog[i + 1];
-        }
-        
+        //for (int i = 0; i < logSize-1; i++)
+        //{
+        //messageLog[i] = messageLog[i + 1];
+        //}
+
         //add new message
-        messageLog[logSize-1] = line;
+        currentChannel.messageLog[currentChannel.messageLog.Length-1] = line; // Cant do this
+
         formatTextblock();
     }
 

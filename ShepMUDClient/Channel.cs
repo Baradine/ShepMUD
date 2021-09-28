@@ -14,7 +14,7 @@ namespace ShepMUDClient
 
         public int channelID { get; }
 
-        string[] messageLog;
+        public string[] messageLog { get; }
 
         // We might allow for persistant chat logs saved client side later, for now, restart log every time.
         int currentIndex;
