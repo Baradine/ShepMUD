@@ -23,6 +23,7 @@ namespace ShepMUDClient
             window = win;
             console = new ConsoleHandler(win);
             connect = new NetworkConnection(25565, "73.180.152.206");
+            //connect = new NetworkConnection(25565, "10.0.0.150");
 
             Chat.InitGlobal();
             console.SetCurrentChannel(Chat.GetChannel(Channel.GLOBAL));

@@ -42,5 +42,22 @@ namespace ShepMUDClient
             
             Chat.Update(channelID, str);
         }
+
+        //Gets how big messagelog really is
+        public int getFilled()
+        {
+            int firstNull = 0;
+
+            for(int i = 0; i < messageLog.Length; i++)
+            {
+                if (messageLog[i] == null)
+                {
+                    firstNull = i;
+                    break;
+                }
+            }
+
+            return firstNull;
+        }
     }
 }

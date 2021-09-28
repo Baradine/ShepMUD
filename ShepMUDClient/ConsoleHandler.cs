@@ -37,7 +37,7 @@ class ConsoleHandler
     {
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < currentChannel.messageLog.Length; i++)
+        for (int i = 0; i < currentChannel.getFilled(); i++)
         {
             //sb.Append(messageLog[i]);
             sb.Append(currentChannel.messageLog[i]);
@@ -65,7 +65,7 @@ class ConsoleHandler
     //Prefixes the writeline command with the console, makes it easier to edit in the future
     public void writeFromConsole(string line)
     {
-        writeLine("Console: " + line);
+        Chat.GetChannel(Channel.GLOBAL).AddMessage("Console: " + line); //This function needs put somewhere else
     }
 
 

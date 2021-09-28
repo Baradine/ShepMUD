@@ -27,7 +27,7 @@ namespace ShepMUDClient
             int i = 0;
             while (i < 4)
             {
-                Main.WriteToChat("Trying to connect...");
+                Chat.GetChannel(Channel.GLOBAL).AddMessage("Trying to connect...");
                 try
                 {
                     client.Connect(hostIP, hostPort);
@@ -35,19 +35,19 @@ namespace ShepMUDClient
                 }
                 catch (Exception e)
                 {
-                    Main.WriteToChat("Connection Failed. ");
+                    Chat.GetChannel(Channel.GLOBAL).AddMessage("Connection Failed. ");
                     i++;
                     Thread.Sleep(2000);
                 }
             }
             if (i < 10)
             {
-                Main.WriteToChat("The server didn't respond.  Exiting.  Press enter to continue.");
+                Chat.GetChannel(Channel.GLOBAL).AddMessage("The server didn't respond.  Exiting.  Press enter to continue.");
                 Environment.Exit(65);
             }
             else
             {
-                Main.WriteToChat("Connected!");
+                Chat.GetChannel(Channel.GLOBAL).AddMessage("Connected!");
             }
             i = 0;
         }
@@ -116,8 +116,9 @@ namespace ShepMUDClient
 
                 //Main.WriteToChat(e.ToString());
             }
-            Console.WriteLine("\n Press Enter to continue...");
-            Console.Read();
+            
+            //Console.WriteLine("\n Press Enter to continue...");
+            //Console.Read();
         }
     }
 }
