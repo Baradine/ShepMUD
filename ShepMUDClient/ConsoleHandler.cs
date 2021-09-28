@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 
-public class ConsoleHandler
+class ConsoleHandler
 {
 
 
