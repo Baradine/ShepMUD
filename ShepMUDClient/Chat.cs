@@ -49,8 +49,16 @@ namespace ShepMUDClient
             // Once the GUI is up and running, we'd also have this add extra chat tabs
             // If necessary.  For now, just outputs to console.
             str = str.Trim();
-            Main.WriteToChat(str);
+            Main.WriteToChat();
         }
+
+        public static void WriteToChannel(string str, int id)
+        {
+            Channel ch = GetChannel(id);
+            ch.AddToLog(str);
+            Main.WriteToChat();
+        }
+
 
         public static void InitGlobal()
         {

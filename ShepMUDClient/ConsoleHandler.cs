@@ -47,7 +47,7 @@ class ConsoleHandler
         logDisplay = sb.ToString();
     }
 
-    public void writeLine(string line)
+    public void writeLine()
     {
         didUpdate = true;
         //move all the messages up
@@ -57,9 +57,14 @@ class ConsoleHandler
         //}
 
         //add new message
-        currentChannel.messageLog[currentChannel.messageLog.Length-1] = line; // Cant do this
-
+        //currentChannel.messageLog[currentChannel.messageLog.Length-1] = line; // Cant do this
         formatTextblock();
+    }
+
+    public void WriteToCurrentChannel(string line)
+    {
+        currentChannel.messageLog[currentChannel.getFilled()] = line;
+        writeLine();
     }
 
     //Prefixes the writeline command with the console, makes it easier to edit in the future
@@ -85,21 +90,21 @@ class ConsoleHandler
         currentChannel = c;
     }
 
-    public void executeCommand(string command)
-    {
-        switch (command) {
-            case "~test":
-                writeFromConsole("test");
-                break;
-            case "~help":
-                writeFromConsole("Help command is WIP");
-                break;
+    //public void executeCommand(string command)
+    //{
+    //    switch (command) {
+    //        case "~test":
+    //            writeFromConsole("test");
+    //            break;
+    //        case "~help":
+    //            writeFromConsole("Help command is WIP");
+    //            break;
 
-            default:
-                writeFromConsole("Command not found"); 
-                break;
-        }
+    //        default:
+    //            writeFromConsole("Command not found"); 
+    //            break;
+    //    }
 
-    }
+    //}
 
 }

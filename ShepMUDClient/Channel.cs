@@ -43,6 +43,19 @@ namespace ShepMUDClient
             Chat.Update(channelID, str);
         }
 
+        public void AddToLog(string str)
+        {
+            if (currentIndex == MAX_LOG - 1)
+            {
+                currentIndex = 0;
+            }
+            else
+            {
+                currentIndex++;
+            }
+            messageLog[getFilled()] = str;
+        }
+
         //Gets how big messagelog really is
         public int getFilled()
         {

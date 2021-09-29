@@ -14,7 +14,7 @@ namespace ShepMUDClient
 
         private static Window1 window;
         private const int CLOCK_SPEED = 100;
-        static ConsoleHandler console { get; set; }
+        public static ConsoleHandler console { get; set; }
         public delegate void SystemTimerDelegate();
 
         static NetworkConnection connect;
@@ -26,6 +26,7 @@ namespace ShepMUDClient
             //connect = new NetworkConnection(25565, "10.0.0.150");
 
             Chat.InitGlobal();
+            CommandControl.InitCommands();
             console.SetCurrentChannel(Chat.GetChannel(Channel.GLOBAL));
 
             Thread thread = new Thread(new ThreadStart(connect.Connect));
@@ -67,7 +68,10 @@ namespace ShepMUDClient
             //Command check
             if (message[0] == '~') //~ is command operators
             {
-                console.executeCommand(message);
+                //console.executeCommand(message);
+                CommandControl.HandleCommand(message);
+                window.InputBox.Text = "";
+                return;
             }
             //------
 
@@ -84,9 +88,9 @@ namespace ShepMUDClient
             window.InputBox.Text = "";
         }
 
-        public static void WriteToChat(string str)
+        public static void WriteToChat()
         {
-            console.writeLine(str);
+            console.writeLine();
         }
     }
 }
