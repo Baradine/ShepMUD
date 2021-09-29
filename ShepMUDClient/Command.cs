@@ -23,7 +23,9 @@ namespace ShepMUDClient
             functions = new FunctionType[functionAmt];
         }
 
-        public void ExecuteCommand()
+        // We should be able to use the command string for extra stuff later.  Possibly pass it into a variable
+        // Which each individual function can parse, if need be.
+        public void ExecuteCommand(string com)
         {
             foreach (FunctionType f in functions)
             {
