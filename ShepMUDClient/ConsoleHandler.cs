@@ -63,7 +63,7 @@ class ConsoleHandler
 
     public void WriteToCurrentChannel(string line)
     {
-        currentChannel.messageLog[currentChannel.getFilled()] = line;
+        currentChannel.AddToLog(line);
         writeLine();
     }
 

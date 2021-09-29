@@ -17,7 +17,7 @@ namespace ShepMUDClient
             {
                 if (com.Name == command)
                 {
-                    com.ExecuteCommand();
+                    com.ExecuteCommand(c);
                     break;
                 }
             }
