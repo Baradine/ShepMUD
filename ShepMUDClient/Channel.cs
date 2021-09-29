@@ -43,8 +43,10 @@ namespace ShepMUDClient
             Chat.Update(channelID, str);
         }
 
+        // Adds to log without updating the chat.  We can keep whitespace this way.
         public void AddToLog(string str)
         {
+            messageLog[currentIndex] = str;
             if (currentIndex == MAX_LOG - 1)
             {
                 currentIndex = 0;
@@ -53,7 +55,7 @@ namespace ShepMUDClient
             {
                 currentIndex++;
             }
-            messageLog[getFilled()] = str;
+            
         }
 
         //Gets how big messagelog really is
