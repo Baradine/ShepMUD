@@ -17,20 +17,20 @@ namespace ShepMUDClient
         public static ConsoleHandler console { get; set; }
         public delegate void SystemTimerDelegate();
 
-        static NetworkConnection connect;
+        public static NetworkConnection connect;
         public static void Startup(Window1 win)
         {
             window = win;
             console = new ConsoleHandler(win);
-            connect = new NetworkConnection(25565, "73.180.152.206");
+            //connect = new NetworkConnection(25565, "73.180.152.206");
             //connect = new NetworkConnection(25565, "10.0.0.150");
 
             Chat.InitGlobal();
             CommandControl.InitCommands();
             console.SetCurrentChannel(Chat.GetChannel(Channel.GLOBAL));
 
-            Thread thread = new Thread(new ThreadStart(connect.Connect));
-            thread.Start();
+            //Thread thread = new Thread(new ThreadStart(connect.Connect));
+            //thread.Start();
             TimingStart();
         }
 
@@ -53,7 +53,10 @@ namespace ShepMUDClient
             {
                 console.getUpdate();
             }
-            connect.Read();
+            if (connect != null)
+            {
+                connect.Read();
+            }
         }
 
         public static void sendMessage()

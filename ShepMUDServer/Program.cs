@@ -10,7 +10,7 @@ namespace ShepMUD
         static void Main(string[] args)
         {
             Chat.InitGlobal();
-            net = new NetworkListener(25565, IPAddress.Parse("10.0.0.13"));
+            net = new NetworkListener(2456, IPAddress.Parse("192.168.0.244"));
             //net = new NetworkListener(25565, IPAddress.Parse("10.0.0.150"));
             net.InitServer();
             net.ReadForClients();
