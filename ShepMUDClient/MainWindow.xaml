@@ -10,23 +10,26 @@
     <Grid Background="#FF181818" Height="540">
         <Grid.RowDefinitions>
             <RowDefinition Height="35*"/>
-            <RowDefinition Height="484*"/>
+            <RowDefinition Height="115*"/>
+            <RowDefinition Height="369*"/>
             <RowDefinition Height="21*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="21*"/>
             <ColumnDefinition Width="379*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="ConsoleBox" x:FieldModifier="public" AcceptsReturn="True" IsReadOnly="True" HorizontalAlignment="Left" Margin="10,218,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.58,-2.289" Height="206" Width="780" Foreground="White" Background="#FF212121" TextChanged="ConsoleBox_TextChanged" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <TextBox x:Name="InputBox"  HorizontalAlignment="Left" Margin="10,442,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="780" Background="#FF212123" Foreground="White" PreviewKeyDown="EnterClicked" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <TextBlock x:Name="mapHolder" HorizontalAlignment="Left" Margin="620,10,0,0" Text="MAP PLACEHOLDER" TextWrapping="Wrap" VerticalAlignment="Top" Height="194" Width="280" Grid.Column="1" Foreground="White" TextAlignment="Center" Background="Black" Grid.RowSpan="2"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="VIEWPORT PLACEHOLDER" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-2.407,-3.413" Grid.ColumnSpan="2" Height="194" Width="655" Background="#FF1D1212" TextAlignment="Center" Foreground="White" Grid.RowSpan="2"/>
+        <TextBox x:Name="ConsoleBox" x:FieldModifier="public" AcceptsReturn="True" IsReadOnly="True" HorizontalAlignment="Left" Margin="10,103,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.58,-2.289" Height="206" Width="780" Foreground="White" Background="#FF212121" TextChanged="ConsoleBox_TextChanged" Grid.ColumnSpan="2" Grid.Row="2"/>
+        <TextBox x:Name="InputBox"  HorizontalAlignment="Left" Margin="10,327,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="780" Background="#FF212123" Foreground="White" PreviewKeyDown="EnterClicked" Grid.ColumnSpan="2" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="VIEWPORT PLACEHOLDER" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-2.407,-3.413" Grid.ColumnSpan="2" Height="194" Width="655" Background="#FF1D1212" TextAlignment="Center" Foreground="White" Grid.RowSpan="3"/>
         <!--Menu-->
-        <Button Name="menuDropDown" Grid.Column="1" Margin="748,218,0,230" Width="150" Background="#FF212123" Foreground="White" Grid.Row="1" HorizontalAlignment="Left" Click="menuDropDown_Click">
+        <Button Name="menuDropDown" Grid.Column="1" Margin="748,103,0,230" Width="150" Background="#FF212123" Foreground="White" Grid.Row="2" HorizontalAlignment="Left" Click="menuDropDown_Click">
             MENU
         </Button>
-        <Button Name="M1" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="1" Width="150" Height="30" Margin="748,55,0,0">FILLER1</Button>
-        <Button Name="M2" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="1" Width="150" Height="30" Margin="748,116,0,0">FILLER2</Button>
-        <Button Name="M3" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="1" Width="150" Height="30" Margin="748,177,0,0">FILLER3</Button>
+        <Button Name="M1" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="2" Width="150" Height="30" Margin="754,140,6,199">FILLER1</Button>
+        <Button Name="M2" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="2" Width="150" Height="30" Margin="754,170,6,169">FILLER2</Button>
+        <Button Name="M3" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="2" Width="150" Height="30" Margin="754,200,6,139">FILLER3</Button>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid x:Name="MapGrid" Margin="620,-25,10,-54" Width="280" Height="194"/>
+        </Grid>
     </Grid>
 </Window>

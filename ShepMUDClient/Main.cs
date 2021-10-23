@@ -25,6 +25,7 @@ namespace ShepMUDClient
 
             Chat.InitGlobal();
             CommandControl.InitCommands();
+            Universe.InitUniverse();
             console.SetCurrentChannel(Chat.GetChannel(Channel.GLOBAL));
             TimingStart();
         }
