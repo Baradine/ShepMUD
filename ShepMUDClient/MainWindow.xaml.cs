@@ -66,6 +66,8 @@ namespace ShepMUDClient
             if (sender == M1)                       //Menu1 pressed
             {
                 Trace.WriteLine("M1 Pressed");                    //<---- debugging behaviour. Change before deployment.
+                CommandControl.HandleCommand("~SetIP \"192.168.0.244\" \"2456\"");
+                CommandControl.HandleCommand("~Connect");
             }
             else if (sender == M2)                  //Menu2 pressed
             {

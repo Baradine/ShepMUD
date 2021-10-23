@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace ShepMUDClient
 {
@@ -28,7 +29,7 @@ namespace ShepMUDClient
 
         public void AddMessage(string str)
         {
-            messageLog[currentIndex] = str;
+            messageLog[currentIndex] = str.Trim();
 
             // Rollover so we don't crash
             if (currentIndex == MAX_LOG - 1)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace ShepMUDClient
 {
@@ -24,7 +25,7 @@ namespace ShepMUDClient
                     copy[i] = 32;
                 }
             }
-            string str = System.Text.Encoding.UTF8.GetString(copy, index, endex - 4);
+            string str = System.Text.Encoding.UTF8.GetString(copy, index, (endex-index)-3);
             int ch = BitConverter.ToInt32(data, endex - 3);
 
             bool found = false;
@@ -48,7 +49,7 @@ namespace ShepMUDClient
         {
             // Once the GUI is up and running, we'd also have this add extra chat tabs
             // If necessary.  For now, just outputs to console.
-            str = str.Trim();
+            //str = str.Trim();
             Main.WriteToChat();
         }
 

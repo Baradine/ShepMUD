@@ -197,10 +197,10 @@ namespace ShepMUDClient
         // integer, then if not, try and parse a int from a string.  If we can't do that, then something has gone wrong and the
         // function doesn't fire.
 
-        // Should likely update this for specific channels if need be
+
         public void WriteToChat(string s)
         {
-            Chat.WriteToChannel(s, 1);
+            Chat.WriteToChannel(s, 1);  //Need to update this for writing to a specific channel instead of just global
         }
 
         public void SetServerIP(string ip, string port)

@@ -22,15 +22,10 @@ namespace ShepMUDClient
         {
             window = win;
             console = new ConsoleHandler(win);
-            //connect = new NetworkConnection(25565, "73.180.152.206");
-            //connect = new NetworkConnection(25565, "10.0.0.150");
 
             Chat.InitGlobal();
             CommandControl.InitCommands();
             console.SetCurrentChannel(Chat.GetChannel(Channel.GLOBAL));
-
-            //Thread thread = new Thread(new ThreadStart(connect.Connect));
-            //thread.Start();
             TimingStart();
         }
 
@@ -86,7 +81,10 @@ namespace ShepMUDClient
             Array.Resize(ref data, 260);
             // Change this later to a byte array that we plug into the chat.  For now, only global
             data[256] = 1;
-            connect.TransmitToServer(0, new byte[] { 1, 0, 0, 0 }, data);
+            if (connect != null)
+            {
+                connect.TransmitToServer(0, new byte[] { 1, 0, 0, 0 }, data);
+            }
 
             window.InputBox.Text = "";
         }

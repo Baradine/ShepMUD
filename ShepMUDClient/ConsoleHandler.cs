@@ -4,8 +4,6 @@ using System.Text;
 
 class ConsoleHandler
 {
-
-
     Window1 window; //Stores reference to window to update textblock
     //int logSize = 50; //should make dynamic based on size of console (CHANGED TO BE MAX BACKLOG???)
     //string[] messageLog; //for display
@@ -89,22 +87,5 @@ class ConsoleHandler
     {
         currentChannel = c;
     }
-
-    //public void executeCommand(string command)
-    //{
-    //    switch (command) {
-    //        case "~test":
-    //            writeFromConsole("test");
-    //            break;
-    //        case "~help":
-    //            writeFromConsole("Help command is WIP");
-    //            break;
-
-    //        default:
-    //            writeFromConsole("Command not found"); 
-    //            break;
-    //    }
-
-    //}
 
 }
