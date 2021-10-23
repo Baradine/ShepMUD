@@ -8,11 +8,15 @@ using System.Reflection;
 
 namespace ShepMUDClient
 {
-    // A command is a dynamic method that allows us to do numerous types of functions based on the parameters it has been assigned.
-    // In order to create a command, you first call it's constructor, and determine it's name (sans the ~) and the amount of functions it will perform.
-    // After which, you call the AddFunction method.  The first will create a FunctionType for you using a name and list of parameters.
-    // The second will add a FunctionType that has already been created to the Command.  Both use the index to determine in what order
-    // The functions will occur.  That may be important, so keep it in mind.
+
+
+    /// <summary>
+    ///     A command is a dynamic method that allows us to do numerous types of functions based on the parameters it has been assigned.
+    /// In order to create a command, you first call it's constructor, and determine it's name(sans the ~) and the amount of functions it will perform.
+    /// After which, you call the AddFunction method. The first will create a FunctionType for you using a name and list of parameters.
+    /// The second will add a FunctionType that has already been created to the Command. Both use the index to determine in what order
+    /// the functions will occur.
+    /// </summary>
     class Command
     {
         FunctionType[] functions;
@@ -53,9 +57,13 @@ namespace ShepMUDClient
         // There is also a possibility of default parameters (so we can create programatic attacks and the like)
         // So there are four distinct possibilities for a command: no parameters, user parameters - no default,
         // default parameters - no user, both user and default parameters
+        /// <summary>
+        /// Executes the command, taking in the parsed string com as arguments to pass into the various command functions defined.
+        /// </summary>
+        /// <param name="com">The full string inputted by the user to execute the command.</param>
         public void ExecuteCommand(string com)
         {
-            parseParameters(com, this.Name);
+            ParseParameters(com, this.Name);
             int index = 0;
             foreach (FunctionType f in functions)
             {
@@ -101,7 +109,14 @@ namespace ShepMUDClient
             }
         }
 
-        // Gets our parameters all in order, based on the parameter mask within the function
+
+        /// <summary>
+        /// Gets our parameters all in order, based on the parameter mask within the function
+        /// </summary>
+        /// <param name="mask">A bitwise integer used to determine the order of our parameters</param>
+        /// <param name="user">An array of user defined parameters</param>
+        /// <param name="defaultP">An array of parameters passed in by code</param>
+        /// <returns>The properly sorted array of parameters, for use in a MethodInfo.Invoke function</returns>
         private Object[] functionMask(int mask, string[] user, Object[] defaultP)
         {
             int fullParamLength = user.Length + defaultP.Length;
@@ -145,6 +160,12 @@ namespace ShepMUDClient
             }
         }
 
+        /// <summary>
+        /// Creates a new function for this command, and adds it to the specificied index in the function list.
+        /// </summary>
+        /// <param name="name">The name of the function (must be an actual function, like the WriteToChat method defined below)</param>
+        /// <param name="parameters">An array of default parameters</param>
+        /// <param name="index">Where to add the array in the command list (later entries are executed last)</param>
         public void AddFunction(string name, Object[] parameters, int index)
         {
             if (functions.Length - 1 < index)
@@ -155,6 +176,11 @@ namespace ShepMUDClient
             functions[index] = f;
         }
 
+        /// <summary>
+        /// Adds a new, predefined function, to the command's function list, at the specified index.
+        /// </summary>
+        /// <param name="function">The FunctionType to add to the command list.  Ideally, it should have the parameter types and mask already defined</param>
+        /// <param name="index">Where to add the function in the command list</param>
         public void AddFunction(FunctionType function, int index)
         {
             if (this.functions.Length - 1 < index)
@@ -188,7 +214,12 @@ namespace ShepMUDClient
             thread.Start();
         }
 
-        private void parseParameters(string s, string com)
+        /// <summary>
+        /// Will parse the parameters out of a string inputted into the client chat box.  These parameters are delimted by quotations, like so: " "
+        /// </summary>
+        /// <param name="s">The full string that was inputted</param>
+        /// <param name="com">The command name, so we can skip a bit for faster parsing</param>
+        private void ParseParameters(string s, string com)
         {
             parameters = new List<string>();
             int firstIn = 0;
@@ -218,11 +249,12 @@ namespace ShepMUDClient
     }
 
 
-    // The FunctionType struct is simple enough - the string determines what the name of the command is (sans the ~), and the object array
-    // is a list of parameters.  This array of parameters can be of any type of object (such as arrays themselves, integers, anything).
-    // For the method, you should have a number of objects within the parameters array equal to the parameters that the method takes.
-    // (Not certain about this, but I'm fairly certain order is important in the parameter array, so make sure the first index lines up
-    // to the first parameter, and so forth).
+
+    /// <summary>
+    /// A structure that determines what function is called, and how it is called, within a command.  The methodName string determines what, exactly, the method we are calling is.
+    /// The defaultParameters array is our programmed parameters, passed in from code, not user input.  The paramCount determines how many, if any, user inputted parameters we should
+    /// expect for this function.  The parameter mask is a bitwise integer used to determine the order of our parameters (0s are user parameters, 1s are default).
+    /// </summary>
     public struct FunctionType
     {
         public string methodName;
