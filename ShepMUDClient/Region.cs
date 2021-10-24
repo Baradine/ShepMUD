@@ -8,7 +8,7 @@ namespace ShepMUDClient
 {
     class Region
     {
-        Tile[,] tileGrid;
+        public Tile[,] tileGrid;
         string name;
         int tileGridWidth;
         int tileGridHeight;

@@ -14,6 +14,8 @@ namespace ShepMUDClient
 
         private static Window1 window;
         private const int CLOCK_SPEED = 100;
+
+        //public static TileMap map;
         public static ConsoleHandler console { get; set; }
         public delegate void SystemTimerDelegate();
 
@@ -22,10 +24,12 @@ namespace ShepMUDClient
         {
             window = win;
             console = new ConsoleHandler(win);
+            TileMap map = new TileMap(win);
 
             Chat.InitGlobal();
-            CommandControl.InitCommands();
             Universe.InitUniverse();
+            Player.InitPlayer(map);
+            CommandControl.InitCommands();
             console.SetCurrentChannel(Chat.GetChannel(Channel.GLOBAL));
             TimingStart();
         }

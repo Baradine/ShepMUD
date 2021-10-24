@@ -8,8 +8,8 @@ namespace ShepMUDClient
 {
     static class Universe
     {
-        static World[] worlds;
-        static World currentWorld;
+        public static World[] worlds;
+        public static World currentWorld;
 
 
         /// <summary>

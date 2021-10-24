@@ -8,7 +8,7 @@ namespace ShepMUDClient
 {
     class World
     {
-        Region[] regions;
+        public Region[] regions;
         int maxRegions;
         int regionCount;
         public World(int max)

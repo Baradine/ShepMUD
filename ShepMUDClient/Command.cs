@@ -117,7 +117,7 @@ namespace ShepMUDClient
         /// <param name="user">An array of user defined parameters</param>
         /// <param name="defaultP">An array of parameters passed in by code</param>
         /// <returns>The properly sorted array of parameters, for use in a MethodInfo.Invoke function</returns>
-        private Object[] functionMask(int mask, string[] user, Object[] defaultP)
+        private Object[] functionMask(uint mask, string[] user, Object[] defaultP)
         {
             int fullParamLength = user.Length + defaultP.Length;
             Object[] fullParam = new object[fullParamLength];
@@ -141,7 +141,7 @@ namespace ShepMUDClient
             }
             else
             {
-                for (int i = 1; i < MathF.Pow(2, fullParamLength); i *= 2)
+                for (uint i = 1; i < MathF.Pow(2, fullParamLength); i *= 2)
                 {
                     if ((i & mask) != i)
                     {
@@ -151,7 +151,7 @@ namespace ShepMUDClient
                     }
                     else
                     {
-                        fullParam[Pindex] = user[Dindex];
+                        fullParam[Pindex] = defaultP[Dindex];
                         Pindex++;
                         Dindex++;
                     }
@@ -190,12 +190,14 @@ namespace ShepMUDClient
             this.functions[index] = function;
         }
 
-        // Below details our list of various functions that each command can utilize.  There are four main types of functions:
-        // Parameterless, user defined parameter functions, default parameter functions, and dual parameter functions.
+        /* 
+           Below details our list of various functions that each command can utilize.  There are four main types of functions:
+           Parameterless, user defined parameter functions, default parameter functions, and dual parameter functions.
 
-        // We should try keeping some of these safe, so if a default param might pass in an integer, we first see if it's type
-        // integer, then if not, try and parse a int from a string.  If we can't do that, then something has gone wrong and the
-        // function doesn't fire.
+           We should try keeping some of these safe, so if a default param might pass in an integer, we first see if it's type
+           integer, then if not, try and parse a int from a string.  If we can't do that, then something has gone wrong and the
+           function doesn't fire. 
+        */
 
 
         public void WriteToChat(string s)
@@ -213,6 +215,145 @@ namespace ShepMUDClient
             Thread thread = new Thread(new ThreadStart(Main.connect.Connect));
             thread.Start();
         }
+
+        /// <summary>
+        /// Moves an entity from one tile to another, in the specified region.  Requires the proper permissions.
+        /// </summary>
+        /// <param name="region">The region in which the entity will be moved to</param>
+        /// <param name="xyPos">The tile at which our entity will be moved to</param>
+        /// <param name="entity">The entity to move</param>
+        /// <param name="permissionID">The permissions to see if we have control over this object.</param>
+        public void MoveEntity(Region region, int[] xyPos, Entity entity, uint permissionID, bool relative)
+        {
+            bool controlOwner = false;
+            // first, check if we have permission to do so
+            foreach (uint i in entity.permission.ownerIDs)
+            {
+                if (i == permissionID)
+                {
+                    controlOwner = true;
+                }
+            }
+            if ((permissionID == 0) || (entity.permission.publicKey == (int)Permission.PermissionKey.Control) || controlOwner)
+            {
+                if (!relative)
+                {
+                    if (xyPos[0] > region.tileGrid.GetLength(0)-1 || xyPos[0] < 0 || xyPos[1] > region.tileGrid.GetLength(1)-1 || xyPos[1] < 0)
+                    {
+                        return; // Replace this with an error chat message at some point
+                    }
+                    entity.xPos = xyPos[0];
+                    entity.yPos = xyPos[1];
+                    region.tileGrid[entity.xPos, entity.yPos].currentEntities.Add(entity);
+                }
+                else
+                {
+                    if (xyPos[0] + entity.xPos > region.tileGrid.GetLength(0)-1 || xyPos[0] + entity.xPos < 0 || 
+                        xyPos[1] + entity.yPos > region.tileGrid.GetLength(1)-1 || xyPos[1] + entity.yPos < 0)
+                    {
+                        return; // Replace this with an error chat message at some point
+                    }
+                    entity.xPos += xyPos[0];
+                    entity.yPos += xyPos[1];
+                    region.tileGrid[entity.xPos, entity.yPos].currentEntities.Add(entity);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Given a dictionary, will translate the input using the desired dictionary and use it as the input for another function.  This function *must* be
+        /// called before the given function in the command, otherwise this will do nothing.
+        /// </summary>
+        /// <param name="dict">The array that functions as a dictionary.  Each index should be an array with length 2, the first index of that array
+        ///  dictating the user input, the second the translated term.</param>
+        /// <param name="input">The user input parameter</param>
+        /// <param name="t">The function in which we're passing our parameter</param>
+        /// <param name="maskBit">Determines where this function will be placed in our parameters list, using the function mask.  This will replace
+        /// any parameter that currently lies in the mask bit, should there be one.</param>
+        /// <param name="sort">By default, we will sort and resize the functions defaultParameter array.  Check this false if the array does not need 
+        /// sorting and is properly sized.</param>
+        public void ParameterDictionary(Object[] dict, string input, FunctionType t, uint maskBit, bool sort = true)
+        {
+            foreach (Object[] o in dict)
+            {
+                if (o[0].GetType() == typeof(string))
+                {
+                    if ((string)o[0] == input)
+                    {
+                        // If we have no default parameters, we're done and just slap the new one in there.
+                        if (t.defaultParameters == null)
+                        {
+                            t.defaultParameters = new Object[1] { o[1] };
+                            t.parameterMask += maskBit;
+                            return;
+                        }
+                        // Finds the position of our new parameter within the defaultParameter array
+                        int index = 0;
+                        for (uint i = 1; i <= 4294967295; i *= 2)
+                        {
+                            if (i == maskBit)
+                            {
+                                if ((maskBit & t.parameterMask) != 0)  // If we're replacing a parameter, there's no need to sort, we can just replace and go on our way
+                                {
+                                    t.defaultParameters[index] = o[1];
+                                    // No need to add the mask bit since it's already there
+                                    return;
+                                }
+                                break;
+                            }
+                            if ((i & t.parameterMask) == i)
+                            {
+                                index++;
+                            }
+                        }
+                        // Checks against our defaultParameter array and our masks to properly sort our parameter within that array.
+                        if (sort)
+                        {
+                            Object[] newArr = new Object[t.defaultParameters.Length + 1];
+                            if (index == t.defaultParameters.Length)
+                            {
+                                for (int i = 0; i < t.defaultParameters.Length; i++)
+                                {
+                                    newArr[i] = t.defaultParameters[i];
+                                }
+                                newArr[index] = o[1];
+                                t.defaultParameters = newArr;
+                                t.parameterMask += maskBit;
+                                return;
+                            }
+                            for (int i = 0; i < t.defaultParameters.Length; i++)
+                            {
+                                if (i == index)
+                                {
+                                    newArr[i] = o[1];
+                                    newArr[i + 1] = t.defaultParameters[i];
+                                }
+                                if (i < index)
+                                {
+                                    newArr[i] = t.defaultParameters[i];
+                                }
+                                if (i > index)
+                                {
+                                    newArr[i + 1] = t.defaultParameters[i];
+                                }
+
+                            }
+                            t.defaultParameters = newArr;
+                            t.parameterMask += maskBit;
+                            return;
+                        }
+                        else
+                        {
+                            t.defaultParameters[index] = o[1];
+                            t.parameterMask += maskBit;
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        /* End Function Section */
 
         /// <summary>
         /// Will parse the parameters out of a string inputted into the client chat box.  These parameters are delimted by quotations, like so: " "
@@ -270,6 +411,6 @@ namespace ShepMUDClient
         // Example: we have 4 parameters, the first which is user defined (0), the second which is default (1),
         // the third also user (0), then the last which is default(1).  This gives us a mask of 0101, 5 in other words.
         // since we're using default int32, that means we can have up to 32 parameters, which I feel is more than plenty
-        public int parameterMask;
+        public uint parameterMask;
     }
 }

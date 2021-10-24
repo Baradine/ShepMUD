@@ -56,12 +56,36 @@ namespace ShepMUDClient
         public static void InitCommands()
         {
             commandList = new Command[1000];
+            commandList[10] = SetupMoveCommand();
             for (int i = 0; i < defaultCommands.Length; i++)
             {
+                
                 commandList[i] = defaultCommands[i];
             }
+
         }
 
+        private static Command SetupMoveCommand()
+        {
+            FunctionType move = new FunctionType { methodName = "MoveEntity", defaultParameters = new Object[] { Player.creature.region, null, Player.creature, (uint)0, true }, 
+                                                   parameterMask = 29};
+            // Movement Dictionary
+            Object[] moveDict = new Object[]
+                {
+                    new Object[] { "North", new int[] { 0, 1 }},
+                    new Object[] { "Northeast", new int[] { 1, 1 }},
+                    new Object[] { "East", new int[] { 1, 0 }},
+                    new Object[] { "Southeast", new int[] { 1, -1 }},
+                    new Object[] { "South", new int[] { 0, -1 }},
+                    new Object[] { "Southwest", new int[] { -1, -1 }},
+                    new Object[] { "West", new int[] { -1, 0 }},
+                    new Object[] { "Northwest", new int[] { -1, 1 }}
+                };
+            FunctionType tParam = new FunctionType { methodName = "ParameterDictionary", defaultParameters = new Object[]{ moveDict, move, (uint)2, false  }, paramCount = 1, 
+                                                     parameterMask = 29};
+
+            return new Command("Move", new FunctionType[] { tParam, move});
+        }
         
     }
 }

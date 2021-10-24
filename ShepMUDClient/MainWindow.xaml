@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShepMUDClient"
         mc:Ignorable="d"
-        Title="Window1" Height="540" Width="960"
-        MinHeight="540" MinWidth="960" MaxHeight="540" MaxWidth="960">
-    <Grid Background="#FF181818" Height="540">
+        Title="Window1" Height="612" Width="1026"
+        MinHeight="612" MinWidth="1024" MaxHeight="612" MaxWidth="1024">
+    <Grid Background="#FF181818" Height="612" Width="1024">
         <Grid.RowDefinitions>
             <RowDefinition Height="35*"/>
             <RowDefinition Height="115*"/>
@@ -18,18 +18,40 @@
             <ColumnDefinition Width="21*"/>
             <ColumnDefinition Width="379*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="ConsoleBox" x:FieldModifier="public" AcceptsReturn="True" IsReadOnly="True" HorizontalAlignment="Left" Margin="10,103,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.58,-2.289" Height="206" Width="780" Foreground="White" Background="#FF212121" TextChanged="ConsoleBox_TextChanged" Grid.ColumnSpan="2" Grid.Row="2"/>
-        <TextBox x:Name="InputBox"  HorizontalAlignment="Left" Margin="10,327,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="780" Background="#FF212123" Foreground="White" PreviewKeyDown="EnterClicked" Grid.ColumnSpan="2" Grid.Row="2"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="VIEWPORT PLACEHOLDER" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-2.407,-3.413" Grid.ColumnSpan="2" Height="194" Width="655" Background="#FF1D1212" TextAlignment="Center" Foreground="White" Grid.RowSpan="3"/>
+        <TextBox x:Name="ConsoleBox" x:FieldModifier="public" AcceptsReturn="True" IsReadOnly="True" HorizontalAlignment="Left" Margin="10,152,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.58,-2.289" Height="206" Width="719" Foreground="White" Background="#FF212121" TextChanged="ConsoleBox_TextChanged" Grid.ColumnSpan="2" Grid.Row="2"/>
+        <TextBox x:Name="InputBox"  HorizontalAlignment="Left" Margin="10,363,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="719" Background="#FF212123" Foreground="White" PreviewKeyDown="EnterClicked" Grid.ColumnSpan="2" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="VIEWPORT PLACEHOLDER" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-2.407,-3.413" Grid.ColumnSpan="2" Height="256" Width="719" Background="#FF1D1212" TextAlignment="Center" Foreground="White" Grid.RowSpan="3"/>
         <!--Menu-->
-        <Button Name="menuDropDown" Grid.Column="1" Margin="748,103,0,230" Width="150" Background="#FF212123" Foreground="White" Grid.Row="2" HorizontalAlignment="Left" Click="menuDropDown_Click">
+        <Button Name="menuDropDown" Grid.Column="1" Margin="695,152,0,222" Width="256" Background="#FF212123" Foreground="White" Grid.Row="2" HorizontalAlignment="Left" Click="menuDropDown_Click">
             MENU
         </Button>
-        <Button Name="M1" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="2" Width="150" Height="30" Margin="754,140,6,199">FILLER1</Button>
-        <Button Name="M2" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="2" Width="150" Height="30" Margin="754,170,6,169">FILLER2</Button>
-        <Button Name="M3" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="2" Width="150" Height="30" Margin="754,200,6,139">FILLER3</Button>
-        <Grid Grid.Column="1" Grid.Row="1">
-            <Grid x:Name="MapGrid" Margin="620,-25,10,-54" Width="280" Height="194"/>
+        <Button Name="M1" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="2" Height="30" Margin="695,201,19,187">FILLER1</Button>
+        <Button Name="M2" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="2" Height="30" Margin="695,235,19,153">FILLER2</Button>
+        <Button Name="M3" Click="MenuItem_Click" Visibility="Hidden" Grid.Column="1" Grid.Row="2" Height="30" Margin="695,270,19,118">FILLER3</Button>
+        <Grid x:Name="MapGrid" Margin="695,10,19,322" Width="256" Height="256" Grid.Column="1" Grid.RowSpan="3" IsEnabled="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="64"/>
+                <RowDefinition Height="64"/>
+                <RowDefinition Height="64"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="32"/>
+                <ColumnDefinition Width="64"/>
+                <ColumnDefinition Width="64"/>
+                <ColumnDefinition Width="64"/>
+                <ColumnDefinition Width="32"/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="CurrentLocationTile" Grid.Column="2" HorizontalAlignment="Left" Height="64" Grid.Row="2" VerticalAlignment="Top" Width="64" Source="/resources/TestGTile.png"/>
+            <Image x:Name="NorthTile" Grid.Column="2" HorizontalAlignment="Left" Height="64" Grid.Row="1" VerticalAlignment="Top" Width="64" Source="/resources/TestGTile.png"/>
+            <Image x:Name="NEastTile" Grid.Column="3" HorizontalAlignment="Right" Height="64" Grid.Row="1" VerticalAlignment="Bottom" Width="64" Grid.RowSpan="1" Grid.ColumnSpan="1" Source="/resources/TestGTile.png"/>
+            <Image x:Name="EastTile" Grid.Column="3" HorizontalAlignment="Right" Height="64" VerticalAlignment="Bottom" Width="64" Grid.Row="2" Source="/resources/TestGTile.png"/>
+            <Image x:Name="SEastTile" Grid.Column="3" HorizontalAlignment="Right" Height="64" VerticalAlignment="Bottom" Width="64" Grid.Row="3" Source="/resources/TestGTile.png"/>
+            <Image x:Name="SouthTile" Grid.Column="2" HorizontalAlignment="Right" Height="64" VerticalAlignment="Bottom" Width="64" Grid.Row="3" Source="/resources/TestGTile.png"/>
+            <Image x:Name="SWestTile" Grid.Column="1" HorizontalAlignment="Right" Height="64" VerticalAlignment="Bottom" Width="64" Grid.Row="3" Source="/resources/TestGTile.png"/>
+            <Image x:Name="WestTile" Grid.Column="1" HorizontalAlignment="Right" Height="64" VerticalAlignment="Bottom" Width="64" Grid.Row="2" Source="/resources/TestGTile.png"/>
+            <Image x:Name="NWestTile" Grid.Column="1" HorizontalAlignment="Right" Height="64" VerticalAlignment="Stretch" Width="64" Grid.Row="1" Source="/resources/TestGTile.png"/>
         </Grid>
     </Grid>
 </Window>

@@ -10,5 +10,12 @@ namespace ShepMUDClient
     {
         public int xPos;
         public int yPos;
+
+        public List<Entity> currentEntities;
+
+        public Tile()
+        {
+            currentEntities = new List<Entity>();
+        }
     }
 }
