@@ -15,6 +15,7 @@ namespace ShepMUDClient
             new Command("SetIP", "SetServerIP", null, 2),
             new Command("Connect", "ConnectToServer", null, 0)
         };
+        static Dictionary<string, Command> shortcuts;
         public static void HandleCommand(string c)
         {
             string command = ParseCommand(c);
@@ -29,6 +30,15 @@ namespace ShepMUDClient
                     com.ExecuteCommand(c);
                     break;
                 }
+            }
+            //check our dictionary for common spelling mistakes and shortcuts
+            try
+            {
+                shortcuts[command.ToLower()].ExecuteCommand(c);
+            }
+            catch (Exception e)
+            {
+                // Write an error to chat
             }
         }
 
@@ -63,6 +73,15 @@ namespace ShepMUDClient
                 commandList[i] = defaultCommands[i];
             }
 
+
+            shortcuts = new Dictionary<string, Command>();
+            setupShortcutDictionary();
+        }
+
+        private static void setupShortcutDictionary()
+        {
+            shortcuts.Add("move", commandList[10]);
+            shortcuts.Add("mv", commandList[10]);
         }
 
         private static Command SetupMoveCommand()
@@ -79,7 +98,19 @@ namespace ShepMUDClient
                     new Object[] { "South", new int[] { 0, -1 }},
                     new Object[] { "Southwest", new int[] { -1, -1 }},
                     new Object[] { "West", new int[] { -1, 0 }},
-                    new Object[] { "Northwest", new int[] { -1, 1 }}
+                    new Object[] { "Northwest", new int[] { -1, 1 }},
+                    new Object[] { "n", new int[] { 0, 1 }},
+                    new Object[] { "ne", new int[] { 1, 1 }},
+                    new Object[] { "e", new int[] { 1, 0 }},
+                    new Object[] { "se", new int[] { 1, -1 }},
+                    new Object[] { "s", new int[] { 0, -1 }},
+                    new Object[] { "sw", new int[] { -1, -1 }},
+                    new Object[] { "w", new int[] { -1, 0 }},
+                    new Object[] { "nw", new int[] { -1, 1 }},
+                    new Object[] { "up", new int[] { 0, 1 }},
+                    new Object[] { "right", new int[] { 1, 0 }},
+                    new Object[] { "down", new int[] { 0, -1 }},
+                    new Object[] { "left", new int[] { -1, 0 }},
                 };
             FunctionType tParam = new FunctionType { methodName = "ParameterDictionary", defaultParameters = new Object[]{ moveDict, move, (uint)2, false  }, paramCount = 1, 
                                                      parameterMask = 29};

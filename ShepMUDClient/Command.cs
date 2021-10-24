@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace ShepMUDClient
 {
@@ -63,7 +64,7 @@ namespace ShepMUDClient
         /// <param name="com">The full string inputted by the user to execute the command.</param>
         public void ExecuteCommand(string com)
         {
-            ParseParameters(com, this.Name);
+            ParseParameters(com);
             int index = 0;
             foreach (FunctionType f in functions)
             {
@@ -278,7 +279,8 @@ namespace ShepMUDClient
             {
                 if (o[0].GetType() == typeof(string))
                 {
-                    if ((string)o[0] == input)
+                    string so = (string)o[0];
+                    if (so.ToLower() == input.ToLower())
                     {
                         // If we have no default parameters, we're done and just slap the new one in there.
                         if (t.defaultParameters == null)
@@ -360,15 +362,16 @@ namespace ShepMUDClient
         /// </summary>
         /// <param name="s">The full string that was inputted</param>
         /// <param name="com">The command name, so we can skip a bit for faster parsing</param>
-        private void ParseParameters(string s, string com)
+        private void ParseParameters(string s)
         {
+            s = Regex.Replace(s.Trim(), " +", " ");
             parameters = new List<string>();
             int firstIn = 0;
             int lastIn = 0;
-            // Ignore the command itself in the string, then find our params in quotes
-            for (int i = com.Length; i < s.Length; i++)
+             
+            for (int i = 0; i < s.Length; i++)
             {
-                if (s[i] == '"')
+                if (s[i] == (char)32)
                 {
                     if (firstIn == 0)
                     {
@@ -383,6 +386,10 @@ namespace ShepMUDClient
                     }
                     continue;
                 }
+            }
+            if (firstIn != 0)
+            {
+                parameters.Add(s.Substring(firstIn + 1, (s.Length - firstIn - 1)));
             }
         }
 
