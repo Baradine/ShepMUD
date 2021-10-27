@@ -32,6 +32,7 @@ namespace ShepMUDClient
             CommandControl.InitCommands();
             console.SetCurrentChannel(Chat.GetChannel(Channel.GLOBAL));
             TimingStart();
+
         }
 
        static void TimingStart()

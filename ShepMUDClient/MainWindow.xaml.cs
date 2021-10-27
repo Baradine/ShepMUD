@@ -37,6 +37,7 @@ namespace ShepMUDClient
             Main.Startup(this);
 
             
+            
         }
 
         public void ChangeText(string text)
