@@ -12,21 +12,30 @@ namespace ShepMUDClient
         string name;
         int tileGridWidth;
         int tileGridHeight;
+        private World parentWorld;
+        public int ID
+        {
+            get;
+        }
 
-        public Region()
+        public Region(World parent)
         {
             name = "default";
             tileGridWidth = 4;
             tileGridHeight = 4;
             tileGrid = new Tile[tileGridWidth, tileGridHeight];
+            parentWorld = parent;
+            ID = CalculateID();
         }
 
-        public Region(string n, int w, int h)
+        public Region(string n, int w, int h, World parent)
         {
             name = n;
             tileGridWidth = w;
             tileGridHeight = h;
             tileGrid = new Tile[tileGridWidth, tileGridHeight];
+            parentWorld = parent;
+            ID = CalculateID();
         }
 
         /// <summary>
@@ -41,6 +50,32 @@ namespace ShepMUDClient
                     tileGrid[i, k] = new Tile { xPos = i, yPos = k };
                 }
             }
+        }
+
+        public int GetParentWorldID()
+        {
+            return parentWorld.ID;
+        }
+
+        private int CalculateID()
+        {
+            if (Universe.regionIDs != null)
+            {
+                int index = 1;
+                foreach (int i in Universe.regionIDs)
+                {
+                    index += i;
+                }
+                Universe.regionIDs.Add(index);
+                return index;
+            }
+            else
+            {
+                Universe.regionIDs = new List<int>();
+                Universe.regionIDs.Add(1);
+                return 1;
+            }
+            
         }
     }
 }

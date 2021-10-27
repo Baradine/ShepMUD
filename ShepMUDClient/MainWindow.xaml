@@ -52,6 +52,7 @@
             <Image x:Name="SWestTile" Grid.Column="1" HorizontalAlignment="Right" Height="64" VerticalAlignment="Bottom" Width="64" Grid.Row="3" Source="/resources/TestGTile.png"/>
             <Image x:Name="WestTile" Grid.Column="1" HorizontalAlignment="Right" Height="64" VerticalAlignment="Bottom" Width="64" Grid.Row="2" Source="/resources/TestGTile.png"/>
             <Image x:Name="NWestTile" Grid.Column="1" HorizontalAlignment="Right" Height="64" VerticalAlignment="Stretch" Width="64" Grid.Row="1" Source="/resources/TestGTile.png"/>
+            <Image x:Name="characterTile" Grid.Column="2" HorizontalAlignment="Center" Height="64" Grid.Row="2" VerticalAlignment="Center" Width="64" Source="/resources/Character_SimpleRogue2.png"/>
         </Grid>
     </Grid>
 </Window>

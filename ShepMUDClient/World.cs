@@ -11,11 +11,30 @@ namespace ShepMUDClient
         public Region[] regions;
         int maxRegions;
         int regionCount;
+        public string name;
+        public int ID
+        {
+            get;
+        }
         public World(int max)
         {
             this.maxRegions = max;
             regions = new Region[maxRegions];
             regionCount = 0;
+            name = "default";
+            if (Universe.worlds != null)
+            {
+                int index = 1;
+                foreach (World w in Universe.worlds)
+                {
+                    index += w.ID;
+                }
+                this.ID = index;
+            }
+            else
+            {
+                this.ID = 1;
+            }
         }
 
         public void NewRegion()
@@ -24,7 +43,7 @@ namespace ShepMUDClient
             {
                 return;
             }
-            Region r = new Region();
+            Region r = new Region(this);
             r.FillTileGrid();
             regions[regionCount++] = r;
         }
