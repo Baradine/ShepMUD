@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace ShepMUDClient
 {
@@ -66,7 +67,7 @@ namespace ShepMUDClient
             if (sender == M1)                       //Menu1 pressed
             {
                 Trace.WriteLine("M1 Pressed");                    //<---- debugging behaviour. Change before deployment.
-                CommandControl.HandleCommand("~SetIP \"192.168.0.244\" \"2456\"");
+                CommandControl.HandleCommand("~SetIP 192.168.0.244 2456");
                 CommandControl.HandleCommand("~Connect");
             }
             else if (sender == M2)                  //Menu2 pressed
@@ -96,6 +97,11 @@ namespace ShepMUDClient
                 M3.Visibility = Visibility.Hidden;
             }
             menuVis = !menuVis;
+        }
+
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            
         }
     }
 }

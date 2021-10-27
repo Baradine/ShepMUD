@@ -214,6 +214,7 @@ namespace ShepMUDClient
         public void ConnectToServer()
         {
             Thread thread = new Thread(new ThreadStart(Main.connect.Connect));
+            thread.IsBackground = true;
             thread.Start();
         }
 
@@ -381,16 +382,13 @@ namespace ShepMUDClient
                     {
                         lastIn = i;
                         parameters.Add(s.Substring(firstIn+1, (lastIn - firstIn - 1)));
-                        firstIn = 0;
+                        firstIn = i;
                         lastIn = 0;
                     }
                     continue;
                 }
             }
-            if (firstIn != 0)
-            {
-                parameters.Add(s.Substring(firstIn + 1, (s.Length - firstIn - 1)));
-            }
+            parameters.Add(s.Substring(firstIn + 1, (s.Length - firstIn - 1)));
         }
 
 
