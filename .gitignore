@@ -2,3 +2,5 @@ ShepMUDClient/bin
 ShepMUDClient/obj
 ShepMUDServer/bin
 ShepMUDServer/obj
+ShepMUDClient/.vs
+ShepMUDServer/.vs
